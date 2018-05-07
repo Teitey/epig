@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry location="C:\mysql-connector-java-5.1.39.jar"/>
+    <context id="mysqlTables" targetRuntime="MyBatis3">
+
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Criteria"/>
+        </plugin>
+
+        <!-- generate entity时，生成hashcode和equals方法 -->
+        <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
+        <!-- generate entity时，生成serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!-- 缓存插件，使用mybatis集成的memcached -->
+        <!-- <plugin type="org.mybatis.generator.plugins.CachePlugin">
+            <property name="cache_type" value="org.mybatis.caches.memcached.MemcachedCache"/>
+            <property name="cache_type" value="org.mybatis.caches.memcached.LoggingMemcachedCache"/>
+        </plugin> -->
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/><!--值为true时去除自动生成的注释，但是重新生成代码时，追加生成重复的内容 -->
+            <property name="suppressDate" value="true"/><!-- 不生成时间戳 -->
+        </commentGenerator>
+
+        <!-- jdbc -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/travel_base?serverTimezone=UTC"
+                        userId="root"
+                        password="123456"/>
+
+        <!--  默认false：把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer。
+          true：把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal
+      -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!-- model -->
+        <javaModelGenerator targetPackage="com.sweet.gen.model.tb" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.sweet.gen.model.BaseModel"/>
+        </javaModelGenerator>
+
+        <!-- mapper -->
+        <sqlMapGenerator targetPackage="com.sweet.gen.mapper.tb" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- dao -->
+        <javaClientGenerator targetPackage="com.sweet.gen.mapper.tb"
+                             targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table schema="travel_base" tableName="travel_scenic">
+            <columnOverride column="longitude" jdbcType="DECIMAL" javaType="java.lang.Double" />
+            <columnOverride column="latitude" jdbcType="DECIMAL" javaType="java.lang.Double" />
+            <columnOverride column="official_score" jdbcType="DECIMAL" javaType="java.lang.Double" />
+            <columnOverride column="is_enabled" jdbcType="TINYINT" javaType="java.lang.Byte" />
+            <columnOverride column="is_deleted" jdbcType="TINYINT" javaType="java.lang.Byte" />
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,73 @@
+spring:
+  profiles:
+    active: dev
+  mvc:
+    favicon:
+      enabled: false
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+    multipart:
+      enabled: true
+      max-file-size: 20
+      max-request-size: 20
+    
+  datasource:
+      travelbase:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat,wall,slf4j
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        maxPoolPreparedStatementPerConnectionSize: 500
+        useGlobalDataSourceStat: true
+
+      tripmanager:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat,wall,slf4j
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+        maxPoolPreparedStatementPerConnectionSize: 500
+        useGlobalDataSourceStat: true
+  aop:
+    proxy-target-class: true #使用cglib代替标准Java实现AOP
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+
+  application:
+    name: spring-boot-redis
+jedis :
+  pool :
+    host : 120.78.148.76
+    port : 8003
+    timeout : 60000
+    config :
+      maxTotal: 100
+      maxIdle: 10
+      maxWaitMillis : 100000
+logging:
+  config: classpath:config/logback-spring.xml

@@ -1,0 +1,16 @@
+com\sweet\gen\model\tb\TravelScenicCriteria.class
+com\sweet\gen\pagination\Pagination.class
+com\sweet\gen\mapper\tb\TravelScenicMapper.class
+com\sweet\gen\model\tm\AdminUserCriteria$GeneratedCriteria.class
+com\sweet\gen\mapper\tm\AdminUserMapper.class
+com\sweet\gen\model\tb\TravelScenicCriteria$GeneratedCriteria.class
+com\sweet\gen\pagination\ReflectHelper.class
+com\sweet\gen\model\tb\TravelScenicCriteria$Criteria.class
+com\sweet\gen\model\tm\AdminUserCriteria$Criteria.class
+com\sweet\gen\pagination\PageInterceptor.class
+com\sweet\gen\model\tm\AdminUserCriteria.class
+com\sweet\gen\model\tm\AdminUserCriteria$Criterion.class
+com\sweet\gen\model\tb\TravelScenicCriteria$Criterion.class
+com\sweet\gen\model\tb\TravelScenic.class
+com\sweet\gen\model\tm\AdminUser.class
+com\sweet\gen\model\BaseModel.class

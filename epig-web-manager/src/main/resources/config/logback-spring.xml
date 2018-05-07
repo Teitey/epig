@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <!-- <include resource="org/springframework/boot/logging/logback/base.xml"/> -->
+    <!-- console log -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- debug -->
+    <appender name="DEBUG_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/logs/epig/manager/debug.log</file>
+        <!-- 日志格式 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <!-- 日志级别过滤器 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>DEBUG</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>/var/logs/epig/manager/debug-%d{yyyy-MM-dd HH:mm:ss}.log</fileNamePattern>
+            <!-- 最大保存时间：15天-->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+    
+    <!-- info -->
+    <appender name="INFO_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/logs/epig/manager/info.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/logs/epig/manager/info-%d{yyyy-MM-dd HH:mm:ss}.log</fileNamePattern>
+            <maxHistory>20</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- warn -->
+    <appender name="WARN_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/logs/epigmanager/warn.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/logs/epig/manager/warn-%d{yyyy-MM-dd HH:mm:ss}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- error -->
+    <appender name="ERROR_OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/logs/epig/manager/error.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%class:%line] %-5level %logger - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/logs/epig/manager/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+    
+	<logger name="com.sweet.tm" level="DEBUG" additivity="true">
+		<appender-ref ref="DEBUG_OUT"/>  
+        <appender-ref ref="INFO_OUT"/>  
+        <appender-ref ref="WARN_OUT"/>  
+        <appender-ref ref="ERROR_OUT"/>  
+	</logger>
+    <logger name="org.springframework.data.mybatis" level="DEBUG"/>
+    <logger name="org.springframework.aop.aspectj" level="ERROR"/>
+    <logger name="org.springframework.jdbc" level="WARN"/>
+
+    <logger name="com.alibaba" level="WARN"/>
+
+    <logger name="javax.activation" level="WARN"/>
+    <logger name="javax.xml.bind" level="WARN"/>
+    <logger name="ch.qos.logback" level="INFO"/>
+    <logger name="com.sun" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+    <!--<logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>-->
+    <logger name="org.hibernate.validator" level="WARN"/>
+
+    <logger name="jdbc.connection" level="ERROR"/>
+    <logger name="jdbc.resultset" level="ERROR"/>
+    <logger name="jdbc.resultsettable" level="INFO"/>
+    <logger name="jdbc.audit" level="ERROR"/>
+    <logger name="jdbc.sqltiming" level="ERROR"/>
+    <logger name="jdbc.sqlonly" level="INFO"/>
+    <springProfile name="dev">
+        <!-- 基于INFO级别处理日志：具体控制台或者文件对日志级别的处理还要看所在appender配置的filter，
+            如果没有配置filter，则使用root配置 -->
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+</configuration>
